@@ -6,3 +6,11 @@ data/cache/*
 phpunit.xml
 ubuntu-xenial-16.04-cloudimg-console.log
 .settings
+.buildpath
+.project
+Dockerfile
+composer.lock
+*.xml
+*.yml
+Vagrantfile
+phpunit.xml.dist
