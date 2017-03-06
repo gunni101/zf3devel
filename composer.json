@@ -23,7 +23,8 @@
         "zendframework/zend-crypt": "^3.2",
         "zendframework/zend-i18n": "^2.7",
         "zendframework/zend-mail": "^2.7",
-        "zendframework/zend-mvc-plugins": "^1.0"
+        "zendframework/zend-mvc-plugins": "^1.0",
+        "zendframework/zend-captcha": "^2.7"
     },
     "autoload": {
         "psr-4": {

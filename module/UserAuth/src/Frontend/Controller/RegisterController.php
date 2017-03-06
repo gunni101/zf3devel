@@ -68,7 +68,11 @@ class RegisterController extends AbstractActionController
     
     public function forgetPasswordAction()
     {
+        $forgetPasswordForm = new \UserAuth\Frontend\Form\ForgetPasswordForm();
         
+        return new ViewModel([
+            'form' => $forgetPasswordForm,
+        ]);
     }
     
     public function successAction()

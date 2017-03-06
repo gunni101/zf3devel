@@ -95,6 +95,7 @@ return [
         'template_map' => [
             'user-auth/frontend/register/register'  => __DIR__ . '/../view/userauth/frontend/registerstep1.phtml',
             'user-auth/frontend/register/success'   => __DIR__ . '/../view/userauth/frontend/registerstep2.phtml',
+            'user-auth/frontend/register/forget-password'   => __DIR__ . '/../view/userauth/frontend/forget.phtml',            
             'user-auth/frontend/auth/login'         => __DIR__ . '/../view/userauth/frontend/login.phtml',
             
         ],
