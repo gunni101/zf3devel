@@ -1,0 +1,87 @@
+<?php
+$this->headTitle('Register User');
+
+$form->get('email')->setAttributes([
+    'class'=>'form-control input-sm',
+    'placeholder'=>'name@domesle.de'
+    ]);
+
+$form->get('username')->setAttributes([
+	'class'=>'form-control input-sm',
+	'placeholder'=>'Max Mustermann'
+    ]);
+
+$form->get('password')->setAttributes([
+	'class'=>'form-control input-sm',
+	'id' => 'password'
+    ]);
+
+$form->get('confirm_password')->setAttributes([
+	'class'=>'form-control input-sm',
+	'id' => 'confirm-password'
+    ]);
+
+$form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+
+$form->prepare();
+?>
+<div class="row">
+	<div class="col-md-4"></div>
+    <div class="col-md-6">
+    <h1>Zugang beantragen!</h1>
+
+<p>
+    Bitte das Formular ausüllen und mit <i>Registrieren</i> absenden.
+</p>
+<p>
+    Nach erfolgreicher Aktivierung Ihres Kontos, erhalten Sie Zugang zu den geschützten Inhalten des Intranets. 
+</p>
+    
+        <?= $this->form()->openTag($form); ?>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('email')); ?>
+            <?= $this->formElement($form->get('email')); ?>
+            <?= $this->formElementErrors($form->get('email')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('username')); ?>
+            <?= $this->formElement($form->get('username')); ?>
+            <?= $this->formElementErrors($form->get('username')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('password')); ?>
+            <?= $this->formElement($form->get('password')); ?>
+            <?= $this->formElementErrors($form->get('password')); ?>
+		</div>
+		<div class="form-group">
+            <?= $this->formLabel($form->get('confirm_password')); ?>
+            <?= $this->formElement($form->get('confirm_password')); ?>
+            <?= $this->formElementErrors($form->get('confirm_password')); ?>                  
+        </div>
+        
+        <?= $this->formElement($form->get('submit')); ?>
+        
+        <?= $this->form()->closeTag(); ?>
+    </div>    
+</div>  
+<script>
+$('#password').hidePassword(true);
+$('#confirm-password').hidePassword(true);
+$('#password')
+	.on('passwordShown', function(){
+		$('#confirm-password').showPassword(true);
+	})
+	.on('passwordHidden', function(){
+		$('#confirm-password').hidePassword(true);
+	})
+$('#confirm-password')
+	.on('passwordShown', function(){
+		$('#password').showPassword(true);
+	})
+	.on('passwordHidden', function(){
+		$('#password').hidePassword(true);
+	});		
+</script>

@@ -1,0 +1,80 @@
+<?php $this->headStyle()->captureStart() ?>
+  .modal-header, h4, .close {
+      background-color: #5cb85c;
+      color:white !important;
+      text-align: center;
+      font-size: 30px;
+  }
+  .modal-footer {
+      background-color: #f9f9f9;
+  }
+<?php $this->headStyle()->captureEnd() ?>
+<?php
+//$this->headTitle('Anmelden');
+$form->get('email')
+    ->setAttributes([
+        'class' => 'form-control input-sm',
+        'placeholder' => 'name@domesle.de',
+        'required' => true,
+        'autofocus' => true,
+    ])
+    ->setLabelAttributes([
+        'class' => 'sr-only',
+    ]);
+    
+$form->get('password')
+    ->setAttributes([
+        'class' => 'form-control input-sm',
+        'placeholder' => 'Passwort',
+        'required' => true,
+    ])
+    ->setLabelAttributes([
+        'class' => 'sr-only',
+    ]);
+?>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4><span class="glyphicon glyphicon-lock"></span> Anmelden</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+                <div class="alert alert-danger" role="alert">
+                    <p >Um dieses Angebot zu nutzen m&uuml;ssen Sie angemeldet sein.</p>
+                    <p>Sollten Sie noch keine Zugangsdaten haben, können Sie sich <a href="<?= $this->url('register') ?>">hier registrieren</a>.</p>
+                </div>
+		<form class="form-singin" method="post">
+			<?php if ($isLoginError): ?>
+			<div class="alert alert-warning" role="alert">
+				<?= $message; ?>
+				<a href="<?= $this->url('login') ?>">Passwort vergessen?</a>
+			</div>
+			<?php endif; ?>
+			<div class="input-group">
+	            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<?= $this->formLabel($form->get('email')); ?>
+				<?= $this->formElement($form->get('email')); ?>
+			</div>
+			<div class="input-group">
+	            <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open"></i></span>
+				<?= $this->formLabel($form->get('password')); ?>
+				<?= $this->formElement($form->get('password')); ?>
+			</div>
+			<div class="checkbox">
+				<label>
+					<?= $this->formElement($form->get('remember_me')); ?>Eingeloggt bleiben
+				</label>
+			</div>
+			<?= $this->formElement($form->get('redirect_url')); ?>
+			<?= $this->formElement($form->get('csrf')); ?>
+			<button class="btn btn-lg btn-success btn-block" type="submit">Anmelden</button>
+		</form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$('#myModal').modal('show');
+</script>
