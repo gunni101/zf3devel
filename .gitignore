@@ -1,16 +1,43 @@
-.vagrant/
-vendor/
-config/development.config.php
-data/cache/*
-!data/cache/.gitkeep
+# Composer files
+composer.phar
+composer.lock
+
+# Files
 phpunit.xml
-ubuntu-xenial-16.04-cloudimg-console.log
+phpunit.xml.dist
 .settings
 .buildpath
 .project
 Dockerfile
-composer.lock
+Vagrantfile
 *.xml
 *.yml
-Vagrantfile
-phpunit.xml.dist
+
+
+# Directorys
+vendor/
+.vagrant/
+
+# Local configs
+config/autoload/*.local.php
+config/development.config.php
+
+# Binary gettext files
+*.mo
+
+# Data
+data/logs/
+data/cache/*
+!data/cache/.gitkeep
+data/sessions/
+data/tmp/
+temp/
+
+#Doctrine 2
+data/DoctrineORMModule/Proxy/
+data/DoctrineORMModule/cache/
+
+
+# Legacy ZF1
+demos/
+extras/documentation
