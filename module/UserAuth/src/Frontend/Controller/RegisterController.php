@@ -66,6 +66,11 @@ class RegisterController extends AbstractActionController
         ]);
     }
     
+    public function forgetPasswordAction()
+    {
+        
+    }
+    
     public function successAction()
     {
         return new ViewModel();

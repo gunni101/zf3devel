@@ -60,6 +60,16 @@ return [
         			],
         		],
         	],
+            'forgetPassword' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/forgetpassword',
+                    'defaults' => [
+               			'controller' => RegisterController::class,
+                    	'action'     => 'forgetPassword',
+                    ],
+                ],
+            ],
         ],
     ],
     
