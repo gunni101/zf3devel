@@ -17,6 +17,7 @@ Vagrantfile
 # Directorys
 vendor/
 .vagrant/
+public/img/captcha/
 
 # Local configs
 config/autoload/*.local.php
