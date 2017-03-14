@@ -54,4 +54,9 @@ class UserManager
 	    
 	    return $user !== null;
 	}
+	
+	public function generatePasswordResetToken()
+	{
+		
+	}
 }

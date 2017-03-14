@@ -2,9 +2,11 @@
 namespace UserAuth\Frontend\Controller;
 
 use UserAuth\Frontend\Form\RegisterForm;
+use UserAuth\Frontend\Form\ForgetPasswordForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
+use UserAuth\Entity\UserEntity;
 
 class RegisterController extends AbstractActionController
 {
@@ -72,11 +74,30 @@ class RegisterController extends AbstractActionController
 
     public function forgetPasswordAction ()
     {
-        $forgetPasswordForm = new \UserAuth\Frontend\Form\ForgetPasswordForm();
+        $form = new ForgetPasswordForm();
+        
+        if ($this->getRequest()->isPost()) {
+        	$data = $this->params()->fromPost();
+        	
+        	$form->setData($data);
+        	
+        	if($form->isValid()) {
+        		$user = $this->entityManager->getRepository(UserEntity::class)
+        			->findOneByEmail($data['email']);
+        		
+        		if($user != null) {
+        			$this->userManager->generatePasswordResetToken();
+        			
+        			return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'sent']);
+        		} else {
+        			return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'invalid-email']);
+        		}
+        	}
+        }
         
         return new ViewModel(
                 [
-                        'form' => $forgetPasswordForm
+                        'form' => $form
                 ]);
     }
 

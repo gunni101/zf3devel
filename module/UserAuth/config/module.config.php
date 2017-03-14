@@ -4,17 +4,18 @@ namespace UserAuth;
 use Zend\Router\Http\Segment;
 use Zend\Router\Http\Literal;
 use UserAuth\Frontend\Controller\RegisterController;
+use UserAuth\Frontend\Controller\AuthController;
 use UserAuth\Frontend\Factory\RegisterControllerFactory;
+use UserAuth\Frontend\Factory\AuthControllerFactory;
 use UserAuth\Model\Service\UserManager;
 use UserAuth\Model\Factory\UserManagerFactory;
-use UserAuth\Frontend\Controller;
-use UserAuth\Frontend\Factory\AuthControllerFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use UserAuth\Model\Service\AuthAdapter;
 use UserAuth\Model\Factory\AuthAdapterFactory;
 use UserAuth\Model\Service\AuthManager;
 use UserAuth\Model\Factory\AuthManagerFactory;
 use UserAuth\Model\Factory\AuthenticationServiceFactory;
+
 return [
     'router' => [
         'routes' => [
@@ -67,7 +68,23 @@ return [
                         'action' => 'forgetPassword'
                     ]
                 ]
-            ]
+            ],
+        	'users' => [
+        		'type' => Segment::class,
+        		'options' => [
+        			'route' => '/users[/:action][/:id]',
+        			'defaults' => [
+        				'controller' => [
+        					'controller' => RegisterController::class,
+        					'action' => 'forgetMessage',
+        				],
+        			],
+        			'constraints' => [
+        				'action' => '[a-zA-z][a-zA-Z0-9_-]*',
+        				'id' => '[a-zA-Z0-9_-]*',
+        			]
+        		]
+        	]
         ]
     ],
     
