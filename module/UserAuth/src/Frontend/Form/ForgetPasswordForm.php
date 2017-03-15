@@ -3,7 +3,6 @@ namespace UserAuth\Frontend\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
-use Zend\Form\Fieldset;
 
 class ForgetPasswordForm extends Form
 {
@@ -48,7 +47,7 @@ class ForgetPasswordForm extends Form
                     'height' => 100,
                     'expiration' => 600,
                     'lineNoiseLevel' => 4,
-                    'wordLen' => 4,
+                    'wordLen' => 4
                 ],
             ],
         ]);

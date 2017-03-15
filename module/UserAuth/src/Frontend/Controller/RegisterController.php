@@ -78,27 +78,31 @@ class RegisterController extends AbstractActionController
         
         if ($this->getRequest()->isPost()) {
         	$data = $this->params()->fromPost();
+        	\Zend\Debug\Debug::dump($data);
         	
         	$form->setData($data);
         	
-        	if($form->isValid()) {
-        		$user = $this->entityManager->getRepository(UserEntity::class)
-        			->findOneByEmail($data['email']);
-        		
-        		if($user != null) {
-        			$this->userManager->generatePasswordResetToken();
+         	if($form->isValid()) {
+         		$user = $this->userManager->checkUserExists($data['email']);
+       		
+         		if($user != null) {
+         			$this->userManager->generatePasswordResetToken($user);
         			
-        			return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'sent']);
-        		} else {
-        			return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'invalid-email']);
-        		}
-        	}
+         			return $this->redirect()->toRoute('users');
+         		} else {
+         			return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'invalid-email']);
+         		}
+         	}
         }
         
-        return new ViewModel(
-                [
-                        'form' => $form
+        return new ViewModel([
+                	'form' => $form
                 ]);
+    }
+    
+    public function forgetMessageAction()
+    {
+	 	return new ViewModel();
     }
 
     public function successAction ()

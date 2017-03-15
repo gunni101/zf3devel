@@ -72,12 +72,10 @@ return [
         	'users' => [
         		'type' => Segment::class,
         		'options' => [
-        			'route' => '/users[/:action][/:id]',
+        			'route' => '/users[/:action[/:id]]',
         			'defaults' => [
-        				'controller' => [
-        					'controller' => RegisterController::class,
-        					'action' => 'forgetMessage',
-        				],
+        				'controller' => RegisterController::class,
+        				'action' => 'forgetMessage',
         			],
         			'constraints' => [
         				'action' => '[a-zA-z][a-zA-Z0-9_-]*',
