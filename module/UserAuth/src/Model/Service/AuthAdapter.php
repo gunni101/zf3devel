@@ -59,7 +59,12 @@ class AuthAdapter implements AdapterInterface
         $passwordHash = $user->getPassword();
         
         if($bcrypt->verify($this->password, $passwordHash)) {
-            return new Result(
+            if($user->getPasswordResetToken() != null) {
+            	$user->setPasswordResetToken(null);
+            	$user->setPasswordResetTokenCreationDate(null);
+            	$this->entityManager->flush();
+            }
+        	return new Result(
                 Result::SUCCESS,
                 $user,   
                 ['Erfolgreich eingeloggt']);

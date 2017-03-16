@@ -1,0 +1,20 @@
+<style>
+.well {
+	background: rgba(254, 254, 254, 0.5)
+}
+</style>
+
+
+<div class="well text-center">
+<?php
+if($id == 'sent') {?>
+	<p>Eine E-Mail wurde an Ihre Adresse versandt.
+<?php 
+}
+if($id == 'invalid-email') {?>
+	<p>Ihre angegebene E-Mail Adresse konnte nicht gefunden werden.
+	<p>Um auf die Startseite zu gelangen bitte <a href="<?= $this->url('home') ?>">hier</a> klicken.
+<?php 
+}
+?>
+</div>

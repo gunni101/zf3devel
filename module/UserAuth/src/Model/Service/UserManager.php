@@ -10,9 +10,12 @@ class UserManager
 {
 	private $entityManager;
 	
-	public function __construct($entityManager)
+	private $mailManager;
+	
+	public function __construct($entityManager, $mailManager)
 	{
 		$this->entityManager = $entityManager;
+		$this->mailManager = $mailManager;
 	}
 	
 	public function addUser($data)
@@ -57,6 +60,30 @@ class UserManager
 	
 	public function generatePasswordResetToken($user)
 	{
-		return true;
+		$token = Rand::getString(32);
+		$user->setPasswordResetToken($token);
+		
+		$currentDate = date('Y-m-d H:i:s');
+		$user->setPasswordResetTokenCreationDate($currentDate);
+		
+		$this->entityManager->flush();
+
+		$httpHost = isset($_SERVER['HTTP_HOST'])?$_SERVER['HTTP_HOST']:'localhost';
+		$passwordResetUrl = 'http://' . $httpHost . '/set-password?token=' . $token;
+
+		$mailData = [
+			'to' => [
+				$user->getEmail() => $user->getUserName(),
+			],
+			'subject' => 'Passwortänderung'
+		];
+		
+		$template = [
+			'reset2user' => __DIR__ .
+			'/../../../view/userauth/mails/reset2user.phtml'
+		];
+		 
+		$this->mailManager->gsMail($mailData, $template, $passwordResetUrl);
+
 	}
 }

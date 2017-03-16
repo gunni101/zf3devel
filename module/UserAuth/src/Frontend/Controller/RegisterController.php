@@ -78,17 +78,17 @@ class RegisterController extends AbstractActionController
         
         if ($this->getRequest()->isPost()) {
         	$data = $this->params()->fromPost();
-        	\Zend\Debug\Debug::dump($data);
+
         	
         	$form->setData($data);
         	
          	if($form->isValid()) {
-         		$user = $this->userManager->checkUserExists($data['email']);
-       		
+         		$user = $this->entityManager->getRepository(UserEntity::class)
+         		->findOneByEmail($data['email']);
          		if($user != null) {
          			$this->userManager->generatePasswordResetToken($user);
         			
-         			return $this->redirect()->toRoute('users');
+         			return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'sent']);
          		} else {
          			return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'invalid-email']);
          		}
@@ -102,7 +102,15 @@ class RegisterController extends AbstractActionController
     
     public function forgetMessageAction()
     {
-	 	return new ViewModel();
+		$id = (string)$this->params()->fromRoute('id');
+
+		if($id != 'sent' && $id != 'invalid-email') {
+			throw new \Exception('Invalid message ID specified!');
+		}
+		
+    	return new ViewModel([
+	 			'id' =>$id
+	 		]);
     }
 
     public function successAction ()

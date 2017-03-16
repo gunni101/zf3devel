@@ -22,7 +22,7 @@ class GSMailManager extends AbstractActionController
     }
     
     
-    public function gsMail(array $data = null, $template = null)
+    public function gsMail(array $data = null, $template = null, $bodyData = null)
     {
         if($this->mailConfig['type'] == 'smtp') {
             $transport = new SmtpTransport(new SmtpOptions($this->mailConfig['smtp_server']));
@@ -37,7 +37,7 @@ class GSMailManager extends AbstractActionController
             return false;
         
         if(is_array($template)){
-            $this->setTemplate($template);
+            $this->setTemplate($template, $bodyData);
             
             $mail = new Message();
             $mail->setBody($this->setMimeBody());
@@ -69,7 +69,7 @@ class GSMailManager extends AbstractActionController
         $transport->send($mail);
     }
     
-    public function setTemplate($template) {
+    public function setTemplate($template, $bodyData = null) {
         
         $resolver   = new TemplateMapResolver();
         $resolver->setMap($template);
@@ -77,7 +77,7 @@ class GSMailManager extends AbstractActionController
         $this->view   = new PhpRenderer();
         $this->view->setResolver($resolver);
 
-        $this->viewModel = new ViewModel();
+        $this->viewModel = new ViewModel(['data' => $bodyData]);
         $this->viewModel->setTemplate(key($template));
     }
     
