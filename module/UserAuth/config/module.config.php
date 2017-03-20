@@ -5,8 +5,10 @@ use Zend\Router\Http\Segment;
 use Zend\Router\Http\Literal;
 use UserAuth\Frontend\Controller\RegisterController;
 use UserAuth\Frontend\Controller\AuthController;
+use UserAuth\Frontend\Controller\UserController;
 use UserAuth\Frontend\Factory\RegisterControllerFactory;
 use UserAuth\Frontend\Factory\AuthControllerFactory;
+use UserAuth\Frontend\Factory\UserControllerFactory;
 use UserAuth\Model\Service\UserManager;
 use UserAuth\Model\Factory\UserManagerFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
@@ -64,7 +66,7 @@ return [
                 'options' => [
                     'route' => '/forgetpassword',
                     'defaults' => [
-                        'controller' => RegisterController::class,
+                        'controller' => UserController::class,
                         'action' => 'forgetPassword'
                     ]
                 ]
@@ -74,7 +76,7 @@ return [
         		'options' => [
         			'route' => '/users[/:action[/:id]]',
         			'defaults' => [
-        				'controller' => RegisterController::class,
+        				'controller' => UserController::class,
         				'action' => 'forgetMessage',
         			],
         			'constraints' => [
@@ -89,7 +91,8 @@ return [
     'controllers' => [
         'factories' => [
             AuthController::class => AuthControllerFactory::class,
-            RegisterController::class => RegisterControllerFactory::class
+            RegisterController::class => RegisterControllerFactory::class,
+        	UserController::class => UserControllerFactory::class
         ]
         
     ],
@@ -108,8 +111,8 @@ return [
             'user-auth/frontend/register/register' => __DIR__ . '/../view/userauth/frontend/registerstep1.phtml',
             'user-auth/frontend/register/success' => __DIR__ . '/../view/userauth/frontend/registerstep2.phtml',
             'user-auth/frontend/auth/login' => __DIR__ . '/../view/userauth/frontend/login.phtml',
-            'user-auth/frontend/register/forget-password' => __DIR__ . '/../view/userauth/frontend/forget.phtml',
-        	'user-auth/frontend/register/forget-message' => __DIR__ . '/../view/userauth/frontend/forgetMessage.phtml'
+            'user-auth/frontend/user/forget-password' => __DIR__ . '/../view/userauth/frontend/forget.phtml',
+        	'user-auth/frontend/user/forget-message' => __DIR__ . '/../view/userauth/frontend/forgetMessage.phtml'
         ],
         'template_path_stack' => [
             __DIR__ . '/../view'

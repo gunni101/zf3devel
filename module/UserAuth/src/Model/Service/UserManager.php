@@ -69,7 +69,7 @@ class UserManager
 		$this->entityManager->flush();
 
 		$httpHost = isset($_SERVER['HTTP_HOST'])?$_SERVER['HTTP_HOST']:'localhost';
-		$passwordResetUrl = 'http://' . $httpHost . '/set-password?token=' . $token;
+		$passwordResetUrl = 'http://' . $httpHost . '/forgetpassword?token=' . $token;
 
 		$mailData = [
 			'to' => [
