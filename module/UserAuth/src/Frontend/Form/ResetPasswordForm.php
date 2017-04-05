@@ -7,6 +7,7 @@ use Zend\InputFilter\InputFilter;
 
 class ResetPasswordForm extends Form
 {
+	
 	/**
 	 * Constructor.
 	 */
