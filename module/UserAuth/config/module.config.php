@@ -71,6 +71,17 @@ return [
                     ]
                 ]
             ],
+        	'resetPassword' => [
+        		'type' => Literal::class,
+        		'options' => [
+        			'route' => '/resetpassword',
+        			'defaults' => [
+        				'controller' => UserController::class,
+        				'action' => 'resetPassword'
+        			]
+        		]
+        	],
+        	
         	'users' => [
         		'type' => Segment::class,
         		'options' => [
@@ -112,7 +123,8 @@ return [
             'user-auth/frontend/register/success' => __DIR__ . '/../view/userauth/frontend/registerstep2.phtml',
             'user-auth/frontend/auth/login' => __DIR__ . '/../view/userauth/frontend/login.phtml',
             'user-auth/frontend/user/forget-password' => __DIR__ . '/../view/userauth/frontend/forget.phtml',
-        	'user-auth/frontend/user/forget-message' => __DIR__ . '/../view/userauth/frontend/forgetMessage.phtml'
+        	'user-auth/frontend/user/forget-message' => __DIR__ . '/../view/userauth/frontend/forgetMessage.phtml',
+        	'user-auth/frontend/user/reset-password' => __DIR__ . '/../view/userauth/frontend/resetPassword.phtml'
         ],
         'template_path_stack' => [
             __DIR__ . '/../view'

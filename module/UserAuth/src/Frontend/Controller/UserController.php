@@ -2,6 +2,7 @@
 namespace UserAuth\Frontend\Controller;
 
 use UserAuth\Frontend\Form\ForgetPasswordForm;
+use UserAuth\Frontend\Form\ResetPasswordForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
@@ -35,7 +36,7 @@ class UserController extends AbstractActionController
 	public function forgetPasswordAction ()
 	{
 		$form = new ForgetPasswordForm();
-
+		
 		if ($this->getRequest()->isPost()) {
 			$data = $this->params()->fromPost();
 
@@ -73,6 +74,15 @@ class UserController extends AbstractActionController
 		]);
 	}
 
+	public function resetPasswordAction ()
+	{
+		$form = new ResetPasswordForm();
+		
+		return new ViewModel([
+			'form' => $form,
+		]);
+	}
+	
 	public function successAction ()
 	{
 		return new ViewModel();
