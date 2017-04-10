@@ -43,10 +43,11 @@ class ForgetPasswordForm extends Form
                     'imgAlt' => 'CAPTCHA Image',
                     'font' => './data/font/ThorneShaded.ttf',
                     'fsize' => 24,
-                    'width' => 350,
+                    'width' => 360,
                     'height' => 100,
                     'expiration' => 600,
-                    'lineNoiseLevel' => 4,
+                    'lineNoiseLevel' => 5,
+                	'dotNoiseLevel' => 100,
                     'wordLen' => 4
                 ],
             ],

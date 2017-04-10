@@ -21,8 +21,8 @@ $form->prepare();
 		<form class="form-singin" method="post">
 		<div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-				<?= $this->formElement($form->get('email')) ?>
-				<?= $this->formElementErrors($form->get('email')); ?>
+			<?= $this->formElement($form->get('email')) ?>
+			<?= $this->formElementErrors($form->get('email')); ?>
 		</div>
 		<?= $this->formElement($form->get('captcha')); ?>
 		<?= $this->formElement($form->get('csrf')); ?>
