@@ -2,11 +2,9 @@
 namespace UserAuth\Frontend\Controller;
 
 use UserAuth\Frontend\Form\RegisterForm;
-use UserAuth\Frontend\Form\ForgetPasswordForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
-use UserAuth\Entity\UserEntity;
 
 class RegisterController extends AbstractActionController
 {
