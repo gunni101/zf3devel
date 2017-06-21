@@ -4,7 +4,6 @@ namespace UserAuth\Model\Service;
 use UserAuth\Entity\UserEntity;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Math\Rand;
-use Zend\Http\Header\UserAgent;
 
 class UserManager
 {
