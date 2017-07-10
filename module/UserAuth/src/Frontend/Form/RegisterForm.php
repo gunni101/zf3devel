@@ -2,7 +2,6 @@
 namespace UserAuth\Frontend\Form;
 
 use Zend\Form\Form;
-use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilter;
 use UserAuth\Model\Validator\UserExistsValidator;
 

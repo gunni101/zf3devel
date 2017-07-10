@@ -26,7 +26,7 @@ class ResetPasswordForm extends Form
 		// Add password
 		$this->add([
 			'type' => 'password',
-			'name' => 'password',
+			'name' => 'new_password',
 			'options' => [
 				'label' => 'Neues Passwort',
 			],
@@ -69,10 +69,9 @@ class ResetPasswordForm extends Form
 		
     	// Add filter for password
 		$inputFilter->add([
-			'name' => 'password',
+			'name' => 'new_password',
 			'required' => true,
 			'filters' => [
-				
 			],
 			'validators' => [
 				[
@@ -96,7 +95,7 @@ class ResetPasswordForm extends Form
 				[
 					'name' => 'Identical',
 					'options' => [
-						'token' => 'password',
+						'token' => 'new_password',
 					],
 				],
 			],

@@ -3,7 +3,6 @@ namespace UserAuth\Frontend\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
-use Zend\Form\Fieldset;
 
 class LoginForm extends Form
 {

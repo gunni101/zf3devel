@@ -36,19 +36,19 @@ class UserController extends AbstractActionController
 	public function forgetPasswordAction ()
 	{
 		$form = new ForgetPasswordForm();
-		
+
 		if ($this->getRequest()->isPost()) {
 			$data = $this->params()->fromPost();
 
-			 
+
 			$form->setData($data);
-			 
+
 			if($form->isValid()) {
 				$user = $this->entityManager->getRepository(UserEntity::class)
 				->findOneByEmail($data['email']);
 				if($user != null) {
 					$this->userManager->generatePasswordResetToken($user);
-					 
+
 					return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'sent']);
 				} else {
 					return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'invalid-email']);
@@ -76,13 +76,43 @@ class UserController extends AbstractActionController
 
 	public function resetPasswordAction ()
 	{
-		$form = new ResetPasswordForm();
+		$token = $this->params()->fromQuery('token', null);
 		
+		// validate token length
+		if ($token!=null && (!is_string($token) || strlen($token)!=32)) {
+			throw new \Exception('Invalid token type or length');
+		}
+		
+		if(!$this->userManager->validatePasswordResetToken($token)) {
+				return $this->redirect()->toRoute('login');
+		}
+				
+		$form = new ResetPasswordForm();
+
+		if($this->getRequest()->isPost()) {
+			$data = $this->params()->fromPost();
+
+			$form->setData($data);
+
+			if($form->isValid()) {
+				
+				$data = $form->getData();
+
+				if($this->userManager->setNewPasswordByToken($token, $data['new_password'])) {
+					return $this->redirect()->toRoute('login');
+				} else {
+					return $this->redirect()->toRoute('home');
+				}
+			} else {
+				\Zend\Debug\Debug::dump($form->isValid());
+			}
+		}
+		\Zend\Debug\Debug::dump($form->getMessages());
 		return new ViewModel([
 			'form' => $form,
 		]);
 	}
-	
+
 	public function successAction ()
 	{
 		return new ViewModel();
