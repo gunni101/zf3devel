@@ -7,23 +7,50 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
 use UserAuth\Entity\UserEntity;
+use GSMail\Service\GSMailManager;
 
+/**
+ *  This controller is responsible for frontend user management.
+ */
 class UserController extends AbstractActionController
 {
 
+	/**
+	 * Entity manager.
+	 * @var Doctrine\ORM\EntityManager
+	 */
 	private $entityManager;
 
+	/**
+	 * User manager.
+	 * @var UserAuth\Model\Service\UserManager
+	 */
 	private $userManager;
 
+	/**
+	 * Mail manager.
+	 * @var GSMail\Service\GSMailManager
+	 */
 	private $mailManager;
 
+	/**
+	 * Constructor
+	 * @param Doctrine\ORM\EntityManager $entityManager
+	 * @param UserAuth\Model\Service\UserManager $userManager
+	 * @param GSMail\Service\GSMailManager $mailManager
+	 */
 	public function __construct ($entityManager, $userManager, $mailManager)
 	{
 		$this->entityManager = $entityManager;
-		$this->userManager = $userManager;
-		$this->mailManager = $mailManager;
+		$this->userManager 	 = $userManager;
+		$this->mailManager 	 = $mailManager;
 	}
 
+	/**
+	 * Call the onDispatch for switching the layout
+	 * {@inheritDoc}
+	 * @see \Zend\Mvc\Controller\AbstractActionController::onDispatch()
+	 */
 	public function onDispatch (MvcEvent $e)
 	{
 		$response = parent::onDispatch($e);
@@ -33,6 +60,9 @@ class UserController extends AbstractActionController
 		return $response;
 	}
 
+	/**
+	 * This action handles the forget password routine
+	 */
 	public function forgetPasswordAction ()
 	{
 		$form = new ForgetPasswordForm();
@@ -40,15 +70,13 @@ class UserController extends AbstractActionController
 		if ($this->getRequest()->isPost()) {
 			$data = $this->params()->fromPost();
 
-
 			$form->setData($data);
 
 			if($form->isValid()) {
 				$user = $this->entityManager->getRepository(UserEntity::class)
-				->findOneByEmail($data['email']);
+					->findOneByEmail($data['email']);
 				if($user != null) {
 					$this->userManager->generatePasswordResetToken($user);
-
 					return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'sent']);
 				} else {
 					return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'invalid-email']);
@@ -83,7 +111,7 @@ class UserController extends AbstractActionController
 			throw new \Exception('Invalid token type or length');
 		}
 		
-		if(!$this->userManager->validatePasswordResetToken($token)) {
+		if($token === null || !$this->userManager->validatePasswordResetToken($token)) {
 				return $this->redirect()->toRoute('login');
 		}
 				

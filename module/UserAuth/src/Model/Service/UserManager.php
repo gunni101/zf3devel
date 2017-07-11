@@ -59,7 +59,7 @@ class UserManager
 
 	public function generatePasswordResetToken($user)
 	{
-		$token = Rand::getString(32);
+		$token = Rand::getString(32, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-!$()');
 		$user->setPasswordResetToken($token);
 
 		$currentDate = date('Y-m-d H:i:s');
