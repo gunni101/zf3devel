@@ -22,7 +22,6 @@ class Module
     public function onBootstrap(MvcEvent $event) {
         $application = $event->getApplication();
         $serviceManager = $application->getServiceManager();
-        
         $sessionManager = $serviceManager->get(SessionManager::class);
     }
 }

@@ -9,11 +9,12 @@
 <?php
 if($id == 'sent') {?>
 	<p>Eine E-Mail wurde an Ihre Adresse versandt.
+	<p><a href="<?= $this->url('home') ?>">Weiter</a>
 <?php 
 }
 if($id == 'invalid-email') {?>
-	<p>Ihre angegebene E-Mail Adresse konnte nicht gefunden werden.
-	<p>Um auf die Startseite zu gelangen bitte <a href="<?= $this->url('home') ?>">hier</a> klicken.
+	<p>Es tut uns leid, aber die angegebene E-Mail Adresse konnte nicht im System gefunden werden.
+	<p><a href="<?= $this->url('home') ?>">Abbrechen </a><a href="<?= $this->url('users', ['action' => 'forgetPassword']) ?>"> Wiederholen</a>
 <?php 
 }
 ?>

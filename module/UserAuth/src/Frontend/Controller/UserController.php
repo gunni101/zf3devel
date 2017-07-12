@@ -65,9 +65,11 @@ class UserController extends AbstractActionController
 	 */
 	public function forgetPasswordAction ()
 	{
+		// Create form
 		$form = new ForgetPasswordForm();
 
 		if ($this->getRequest()->isPost()) {
+			
 			$data = $this->params()->fromPost();
 
 			$form->setData($data);
@@ -75,6 +77,7 @@ class UserController extends AbstractActionController
 			if($form->isValid()) {
 				$user = $this->entityManager->getRepository(UserEntity::class)
 					->findOneByEmail($data['email']);
+
 				if($user != null) {
 					$this->userManager->generatePasswordResetToken($user);
 					return $this->redirect()->toRoute('users', ['action' => 'forgetMessage', 'id' => 'sent']);
@@ -89,6 +92,12 @@ class UserController extends AbstractActionController
 		]);
 	}
 
+	/**
+	 * This action displays additional informational message page.
+	 * 
+	 * @throws \Exception
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function forgetMessageAction()
 	{
 		$id = (string)$this->params()->fromRoute('id');
