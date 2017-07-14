@@ -41,13 +41,14 @@ $form->get('password')
                 <h4><span class="glyphicon glyphicon-lock"></span> Anmelden</h4>
             </div>
             <div class="modal-body" style="padding:40px 50px;">
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-info" role="alert">
                     <p >Um dieses Angebot zu nutzen m&uuml;ssen Sie angemeldet sein.</p>
                     <p>Sollten Sie noch keine Zugangsdaten haben, können Sie sich <a href="<?= $this->url('register') ?>">hier registrieren</a>.</p>
                 </div>
 		<form class="form-singin" method="post">
 			<?php if ($isLoginError): ?>
-			<div class="alert alert-warning" role="alert">
+			<div class="alert alert-danger" role="alert">
+				<?= $codes; ?>
 				<?= $message; ?>
 				<a href="<?= $this->url('forgetPassword') ?>">Passwort vergessen?</a>
 			</div>

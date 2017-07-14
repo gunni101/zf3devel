@@ -67,6 +67,7 @@ class AuthController extends AbstractActionController
                 //Perform the login attempt.
                 $result = $this->authManager->login($data['email'], $data['password'], $data['remember_me']);
                 $message = $result->getMessages()[0];
+                $codes = $result->getCode();
                 
                 // Check login result
                 if($result->getCode() == RESULT::SUCCESS) {
@@ -101,6 +102,7 @@ class AuthController extends AbstractActionController
             'form' => $form,
             'isLoginError' => $isLoginError,
             'message' => $message,
+        	'codes' => $codes,
             'redirectUrl' => $redirectUrl
         ]);
     }
