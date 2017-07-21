@@ -48,9 +48,9 @@ $form->get('password')
 		<form class="form-singin" method="post">
 			<?php if ($isLoginError): ?>
 			<div class="alert alert-danger" role="alert">
-				<?= $codes; ?>
 				<?= $message; ?>
-				<a href="<?= $this->url('forgetPassword') ?>">Passwort vergessen?</a>
+				<?php if($codes == -1) { echo "Bitte wenden Sie sich an Ihren Systemadinistrator."; } ?> 
+				<?php if($codes == -3) {?><a href="<?= $this->url('forgetPassword'); ?>">Passwort vergessen?</a><?php }?>
 			</div>
 			<?php endif; ?>
 			<div class="input-group">

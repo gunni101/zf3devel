@@ -38,7 +38,7 @@ class AuthAdapter implements AdapterInterface
             return new Result(
                 RESULT::FAILURE_IDENTITY_NOT_FOUND,
                 null,
-                ['Invalid credentials']);
+                ['Benutzername falsch oder nicht vorhanden.']);
         }
         
         if($user->getStatus() == UserEntity::STATUS_NEW) {

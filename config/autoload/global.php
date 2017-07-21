@@ -18,8 +18,10 @@ use Zend\Session\Validator\HttpUserAgent;
 return [
     // Session configuration.
     'session_config' => [
-        'cookie_lifetime'     => 60*60*4, // Session cookie will expire in 4 hours.
+        'cookie_lifetime'     => 60*60*24, // Session cookie will expire in 4 hours.
         'gc_maxlifetime'      => 60*60*24*30, // How long to store session data on server (for 30 days).
+        'remember_me_seconds' => 60*60*24,
+    	'name' => 'zf3devel',
     ],
     // Session manager configuration.
     'session_manager' => [

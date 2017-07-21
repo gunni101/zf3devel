@@ -49,6 +49,8 @@ class AuthController extends AbstractActionController
         // store login status
         
         $isLoginError = false;
+        $message = null;
+        $codes = null;
         
         // Check if it a POST request
         if($this->getRequest()->isPost()) {
@@ -57,13 +59,12 @@ class AuthController extends AbstractActionController
             $data = $this->params()->fromPost();
             
             $form->setData($data);
-            
+
             // Validate form
             if($form->isValid()) {
 
-                // Get filtered and validated data
+ 	            // Get filtered and validated data
                 $data = $form->getData();
-                
                 //Perform the login attempt.
                 $result = $this->authManager->login($data['email'], $data['password'], $data['remember_me']);
                 $message = $result->getMessages()[0];
