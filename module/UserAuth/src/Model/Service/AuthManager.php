@@ -31,7 +31,7 @@ class AuthManager
 		$result = $this->authService->authenticate();
 		
 		if ($result->getCode() == Result::SUCCESS && $rememberMe) {
-			$this->sessionManager->rememberMe(60*60*24*3);
+			$this->sessionManager->rememberMe(60*60*24*30);
 		}
 		
 		return $result;

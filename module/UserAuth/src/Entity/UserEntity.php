@@ -158,7 +158,7 @@ class UserEntity
         if (isset($list[$this->status]))
             return $list[$this->status];
 
-            return 'Unknown';
+        return 'Unknown';
     }
 
     /**
