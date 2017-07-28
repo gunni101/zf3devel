@@ -1,5 +1,6 @@
 <?php
 //$this->headTitle('Anmelden');
+use Zend\Form\Element\Captcha;
 $form->get('email')
 ->setAttributes([
     'class' => 'form-control input-sm',
@@ -18,16 +19,21 @@ $form->prepare();
 <div class="row">
 	<div class="col-md-offset-4 col-md-4">
 		<?= $this->form()->openTag($form); ?>
-		<form class="form-singin" method="post">
 		<div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 			<?= $this->formElement($form->get('email')) ?>
 			<?= $this->formElementErrors($form->get('email')); ?>
 		</div>
+		<p>
+		<div class="form-group">
 		<?= $this->formElement($form->get('captcha')); ?>
+		</div>
 		<?= $this->formElement($form->get('csrf')); ?>
 		<?= $this->formElement($form->get('submit')); ?>
 			
 		<?= $this->form()->closeTag();?>
     </div>
 </div>
+<?php 
+echo $this->form()->closeTag();
+ ?>

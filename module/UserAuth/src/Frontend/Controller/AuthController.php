@@ -2,41 +2,51 @@
 namespace UserAuth\Frontend\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use UserAuth\Frontend\Form\LoginForm;
-use Zend\Uri\Uri;
 use Zend\Authentication\Result;
+use Zend\View\Model\ViewModel;
+use Zend\Uri\Uri;
 
 class AuthController extends AbstractActionController
 {
     /**
      * EntityManager
-     * @var Doctrine\ORM\EntityManager
+     * @var \Doctrine\ORM\EntityManager
      */
     private $entityManager;
     
+	/**
+	 * AuthManager
+	 * @var \UserAuth\Model\Service\AuthManager
+	 */
+    private $authManager;
+    
+    /**
+     * AuthService
+     * @var \Zend\Authentication\AuthenticationService
+     */
+    private $authService;
+    
     /**
      * UserManager
-     * @var UserAuth\Frontend\UserManager
+     * @var \UserAuth\Model\Service\UserManager
      */
     private $userManager;
     
-    
-    private $authManager;
-    
-    private $authService;
-        
     public function __construct($entityManager, $authManager, $authService, $userManager)
     {
         $this->entityManager = $entityManager;
-        $this->userManager = $userManager;
-        $this->authManager = $authManager;
-        $this->authService = $authService;
+        $this->authManager   = $authManager;
+        $this->authService   = $authService;
+        $this->userManager   = $userManager;
     }
     
     public function loginAction()
     {
         
+    	if ($this->authService->hasIdentity() )
+    		$this->authService->clearIdentity();
+    	
         $redirectUrl = (string)$this->params()->fromQuery('redirectUrl', '');
         if(strlen($redirectUrl) > 2048) {
             throw new \Exception('Die URL für die Weiterleitung ist zu lange!');
