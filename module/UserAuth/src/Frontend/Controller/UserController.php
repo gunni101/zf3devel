@@ -86,7 +86,7 @@ class UserController extends AbstractActionController
 				}
 			}
 		}
-
+		
 		return new ViewModel([
 			'form' => $form
 		]);
